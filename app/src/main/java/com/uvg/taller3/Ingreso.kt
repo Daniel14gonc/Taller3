@@ -1,5 +1,6 @@
 package com.uvg.taller3
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,27 +9,22 @@ import kotlinx.android.synthetic.main.activity_ingreso.*
 import java.lang.Exception
 
 class Ingreso : AppCompatActivity() {
-    lateinit var op: String
-    lateinit var input1: EditText
-    lateinit var input2: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingreso)
 
-        input1 = Valor1
-        input2 = Valor2
-
-        var bundle:Bundle? = intent.extras
-        op  = bundle?.getString("operacion").toString()
+        var bundle = intent.extras
+        val op  = bundle?.getString("operacion")
+        print(op+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
         calcular.setOnClickListener {
             if(op != null){
                 val intent = Intent()
-                var v1: Int = input1.text.toString().toInt()
-                var v2: Int = input2.text.toString().toInt()
+                var v1: Int = Valor1.text.toString().toInt()
+                var v2: Int = Valor2.text.toString().toInt()
                 try {
-                    var res: Int = 0
+                    var res = 0
                     when (op) {
                         "+" -> {
                             res = v1 + v2
@@ -48,6 +44,7 @@ class Ingreso : AppCompatActivity() {
                 catch (e:Exception){
                     intent.putExtra("resultado", "error")
                 }
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }
